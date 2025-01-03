@@ -1,4 +1,2 @@
-
-<h1>Top Languages on GitHub</h1>
-
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Aryanwadhera&layout=compact&theme=midnight-blue&hide=css,HTML)
+![Aryanwadhera's Stats](https://github-readme-stats.vercel.app/api?username=Aryanwadhera&theme=dark&show_icons=true&hide_border=true&count_private=true)
+![Aryanwadhera's Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Aryanwadhera&theme=dark&show_icons=true&hide_border=true&layout=compact)
