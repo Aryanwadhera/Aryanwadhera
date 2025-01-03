@@ -5,4 +5,4 @@
 
 <h3>Top Languages on GitHub</h3>
 
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=DevomB&layout=compact&theme=midnight-purple&hide=css,HTML)
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Aryanwadhera&layout=compact&theme=midnight-blue&hide=css,HTML)
