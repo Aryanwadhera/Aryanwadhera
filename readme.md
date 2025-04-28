@@ -12,6 +12,10 @@ Hi, I’m Aryan Wadhera, a high school student and founder of Moonlit Company En
 ![](https://nirzak-streak-stats.vercel.app/?user=Aryanwadhera&theme=dark&hide_border=true)<br/>
 ![](https://github-readme-stats.vercel.app/api/top-langs/?username=Aryanwadhera&theme=dark&hide_border=true&include_all_commits=false&count_private=true&layout=compact)
 
+# 📊 HackaTime by Hack Club Stats:
+![](https://github-readme-stats.hackclub.dev/api/wakatime?username=211&api_domain=hackatime.hackclub.com&theme=darcula&custom_title=Hackatime+Stats&layout=compact&cache_seconds=0&langs_count=8)<br/>
+
+
 ### ✍️ Random Dev Quote
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=dark)
 
