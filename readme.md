@@ -1,4 +1,4 @@
-# 💫 About Me:
+# About Me:
 Hi, I’m Aryan Wadhera, a high school student and founder of Moonlit Company Enterprises, a software development company. I’m passionate about technology and coding, and I’ve worked as a social media manager for Nekter Juice Bar, helping with marketing strategies. I’m dedicated, detail-oriented, and always eager to learn and grow. Thanks for reading!<br>
 
 
