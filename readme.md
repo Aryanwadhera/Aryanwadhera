@@ -19,11 +19,3 @@ And more i am just to lazy to put them
 # HackaTime by Hack Club Stats:
 ![](https://github-readme-stats.hackclub.dev/api/wakatime?username=211&api_domain=hackatime.hackclub.com&theme=darcula&custom_title=Hackatime+Stats&layout=compact&cache_seconds=0&langs_count=8)<br/>
 
-
-### Random Dev Quote
-![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=dark)
-
----
-[![](https://visitcount.itsvg.in/api?id=Aryanwadhera&icon=0&color=1)](https://visitcount.itsvg.in)
-
-
