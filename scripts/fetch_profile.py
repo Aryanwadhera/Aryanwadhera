@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch the contribution calendar and pinned repos into data/profile.json.
+"""Fetch the contribution calendar into data/profile.json.
 
 Run daily by .github/workflows/profile-cards.yml, then scripts/render_cards.py
 turns the JSON into cards. Needs GITHUB_TOKEN (provided automatically in Actions).
@@ -19,18 +19,6 @@ OUT_FILE = ROOT / "data" / "profile.json"
 QUERY = """
 query($login: String!) {
   user(login: $login) {
-    pinnedItems(first: 6, types: REPOSITORY) {
-      nodes {
-        ... on Repository {
-          name
-          description
-          url
-          stargazerCount
-          forkCount
-          primaryLanguage { name color }
-        }
-      }
-    }
     contributionsCollection {
       contributionCalendar {
         weeks { contributionDays { date contributionCount } }
@@ -72,25 +60,10 @@ def main() -> None:
         for day in week["contributionDays"]
     ]
 
-    repos = []
-    for node in user["pinnedItems"]["nodes"]:
-        if not node or not node.get("name"):
-            continue
-        language = node.get("primaryLanguage") or {}
-        repos.append({
-            "name": node["name"],
-            "description": node.get("description") or "",
-            "url": node["url"],
-            "language": language.get("name"),
-            "language_color": language.get("color"),
-            "stars": node["stargazerCount"],
-            "forks": node["forkCount"],
-        })
-
-    out = {"login": LOGIN, "days": days, "repos": repos}
+    out = {"login": LOGIN, "days": days}
     OUT_FILE.parent.mkdir(exist_ok=True)
     OUT_FILE.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"Wrote {len(days)} days and {len(repos)} pinned repos to {OUT_FILE.relative_to(ROOT)}")
+    print(f"Wrote {len(days)} days to {OUT_FILE.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ Reads data/profile.json (refreshed daily by .github/workflows/profile-cards.yml)
 and writes one self-contained SVG per card:
 
     hero.svg, tile-website.svg, tile-linkedin.svg, tile-instagram.svg,
-    activity.svg, graph.svg, repo-1.svg ... repo-6.svg
+    company.svg, activity.svg, graph.svg
 
 Usage:
     python scripts/render_cards.py           # animated cards (what the Action commits)
@@ -54,11 +54,10 @@ HERO_NAME = "Aryan Wadhera"
 HERO_LINE = "CEO & Managing Partner, The Moonlit Company · Pre-law at IVC"
 
 TILES = [
-    ("tile-website", "Website", "wadheras.com"),
+    ("tile-website", "Website", "aryanwadhera.tech"),
     ("tile-linkedin", "LinkedIn", "linkedin.com/in/aryanwadhera"),
     ("tile-instagram", "Instagram", "@aryanwadhera_"),
 ]
-MAX_REPO_CARDS = 6
 STAGGER = 0.3  # seconds between cards, so the page plays top to bottom
 EASE = "cubic-bezier(.2,.7,.2,1)"
 
@@ -285,7 +284,7 @@ def activity(days: list[tuple[dt.date, int]]) -> Card:
     c = Card(
         "activity", 830, 360, "Contributions",
         f"{st['total']:,} contributions in the last year. Monthly totals, streak, active days and busiest day.",
-        order=2,
+        order=3,
     )
     c.frame()
     c.text(40, 50, "Contributions", size=18, weight=600, anim=c.anim("rise", 0.05))
@@ -329,7 +328,7 @@ def graph(days: list[tuple[dt.date, int]]) -> Card:
     level = level_fn([c for d, c in days if d >= end - dt.timedelta(days=364)])
 
     c = Card("graph", 830, 216, "Contribution graph",
-             f"{st['total']:,} contributions in the last year", order=3)
+             f"{st['total']:,} contributions in the last year", order=4)
     c.frame()
     c.text(40, 44, "Contribution graph", size=16, weight=600, anim=c.anim("rise", 0.05))
     c.text(790, 44, f"{st['total']:,} contributions in the last year", size=13, weight=500,
@@ -365,24 +364,17 @@ def graph(days: list[tuple[dt.date, int]]) -> Card:
     return c
 
 
-def repo(index: int, item: dict) -> Card:
-    desc = item.get("description") or ""
-    c = Card(f"repo-{index + 1}", 406, 150, item["name"], desc or "Repository", order=4 + index // 2)
+def company() -> Card:
+    c = Card("company", 830, 120, "The Moonlit Company", "CEO & Managing Partner, moonlit.company", order=2)
     c.frame()
-    c.text(24, 42, truncate(item["name"], 30), size=16, weight=600, anim=c.anim("rise", 0.05))
-    for i, line in enumerate(textwrap.wrap(desc, 50, max_lines=2, placeholder="…")):
-        c.text(24, 68 + i * 19, line, size=13, weight=400, fill=MUTED, anim=c.anim("rise", 0.12 + i * 0.04))
-
-    footer = c.anim("fade", 0.3, 0.5)
-    if item.get("language"):
-        c.add(f'<circle cx="29" cy="120" r="5" fill="{item.get("language_color") or MUTED}"{footer}/>')
-        c.text(40, 125, item["language"], size=13, weight=500, fill=MUTED, anim=footer)
     c.add(
-        f'<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" '
-        f'fill="{MUTED}" transform="translate(196 113) scale(.55)"{footer}/>'
+        f'<g fill="none" stroke="{INK}" stroke-width="2" stroke-linecap="round" '
+        f'stroke-linejoin="round" transform="translate(766 40)"{c.anim("fade", 0.3, 0.6)}>'
+        '<path d="M4 14 L14 4 M6 4 H14 V12"/></g>'
     )
-    c.text(212, 125, f"{item.get('stars', 0):,}", size=13, weight=500, fill=MUTED, anim=footer)
-    c.text(254, 125, f"{item.get('forks', 0):,} forks", size=13, weight=500, fill=MUTED, anim=footer)
+    c.text(40, 56, "The Moonlit Company", size=22, weight=600, anim=c.anim("rise", 0.1))
+    c.text(40, 84, "CEO & Managing Partner · moonlit.company", size=15, weight=500, fill=MUTED,
+           anim=c.anim("rise", 0.18))
     return c
 
 
@@ -402,9 +394,9 @@ def main() -> None:
 
     cards: list[Card] = [hero(portrait_b64)]
     cards += [tile(name, label, sub, order=1) for name, label, sub in TILES]
+    cards.append(company())
     cards.append(activity(days))
     cards.append(graph(days))
-    cards += [repo(i, r) for i, r in enumerate(data.get("repos", [])[:MAX_REPO_CARDS])]
 
     OUT_DIR.mkdir(exist_ok=True)
     written = set()
